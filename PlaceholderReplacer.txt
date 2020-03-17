@@ -1,0 +1,22 @@
+[MVarDef,NF_ZCopiedSubTool,1]
+//[MVarDef,NF_ZCopiedPosition,9]
+[MVarDef,NF_ZUpdatedSubTool,1]
+
+[IButton,"DuplicateSubtool","Duplicates Subtool to be the placeholder...",
+	[IPress,Tool:SubTool:Duplicate]
+	//duplicate and save duplicate id?
+	[MVarSet,NF_ZCopiedSubTool,0,[SubToolGetID]]
+]//end of button
+
+[IButton,"ReplaceSubtool","Replaces Copied Subtool with current",
+	[MVarSet,NF_ZUpdatedSubTool,0,[SubToolGetID]]
+
+	[SubToolLocate,NF_ZCopiedSubtool,0]
+	//get position of copied subtool
+	[TransformGet, xPos, yPos, zPos, xSc, ySc, zSc, xRot, yRot, zRot]
+	[SubToolLocate,NF_ZUpdatedSubtool,0]
+	[IPress,Tool:SubTool:Duplicate]
+	[TransformSet, xPos, yPos, zPos, xSc, ySc, zSc, xRot, yRot, zRot]
+
+
+]//end of button
