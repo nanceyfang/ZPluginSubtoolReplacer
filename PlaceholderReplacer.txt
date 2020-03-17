@@ -1,22 +1,55 @@
-[MVarDef,NF_ZCopiedSubTool,1]
-//[MVarDef,NF_ZCopiedPosition,9]
-[MVarDef,NF_ZUpdatedSubTool,1]
+
+[VarDef, CopiedSubTool, 0]
+[VarDef, UpdatedSubTool, 0]
 
 [IButton,"DuplicateSubtool","Duplicates Subtool to be the placeholder...",
 	[IPress,Tool:SubTool:Duplicate]
 	//duplicate and save duplicate id?
-	[MVarSet,NF_ZCopiedSubTool,0,[SubToolGetID]]
+
+		[VarSet, CopiedSubTool, [SubToolGetActiveIndex]]
+
+	[Note, CopiedSubTool]
 ]//end of button
 
 [IButton,"ReplaceSubtool","Replaces Copied Subtool with current",
-	[MVarSet,NF_ZUpdatedSubTool,0,[SubToolGetID]]
+	//[MVarSet,NF_ZUpdatedSubTool,0,[SubToolGetID]]
 
-	[SubToolLocate,NF_ZCopiedSubtool,0]
+	[VarSet, UpdatedSubTool, [SubToolGetActiveIndex]]
+
+	[SubToolSelect,CopiedSubtool]
 	//get position of copied subtool
 	[TransformGet, xPos, yPos, zPos, xSc, ySc, zSc, xRot, yRot, zRot]
-	[SubToolLocate,NF_ZUpdatedSubtool,0]
+
+	[Note, xPos]
+
+	[SubToolSelect,UpdatedSubtool]
+	//get position of updated subtool
+	[TransformGet, xPos2, yPos2, zPos2, xSc2, ySc2, zSc2, xRot2, yRot2, zRot2]
+
+	[Note,xPos2]
+
 	[IPress,Tool:SubTool:Duplicate]
-	[TransformSet, xPos, yPos, zPos, xSc, ySc, zSc, xRot, yRot, zRot]
+
+	[IModSet,Tool:Deformation:Rotate,5]
+	[IModSet,Tool:Deformation:Rotate,1]
+	[ISet,Tool:Deformation:Rotate,xRot]
+
+	[IModSet,Tool:Deformation:Rotate,3]
+	[IModSet,Tool:Deformation:Rotate,2]
+	[ISet,Tool:Deformation:Rotate,yRot]
+
+	[IModSet,Tool:Deformation:Rotate,0]
+	[IModSet,Tool:Deformation:Rotate,4]
+	[ISet,Tool:Deformation:Rotate,xRot]
+
+	[ISet,Tool:Geometry:X Position,xPos-xPos2]
+	[ISet,Tool:Geometry:Y Position,yPos-yPos2]
+	[ISet,Tool:Geometry:Z Position,zPos-zPos2]
 
 
 ]//end of button
+
+[IButton,"Transpose","aaa",
+	[TransformSet, 100, 100, 100, 2, 2, 1, 90, 0, 0]
+]//end of button
+
