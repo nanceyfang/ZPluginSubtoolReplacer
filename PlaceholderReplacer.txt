@@ -1,4 +1,5 @@
-
+[MVarDef,MyDataBlock1,9]
+[MVarDef,MyDataBlock2,9]
 [VarDef, CopiedSubTool, 0]
 [VarDef, UpdatedSubTool, 0]
 
@@ -8,7 +9,6 @@
 
 		[VarSet, CopiedSubTool, [SubToolGetActiveIndex]]
 
-	[Note, CopiedSubTool]
 ]//end of button
 
 [IButton,"ReplaceSubtool","Replaces Copied Subtool with current",
@@ -18,18 +18,28 @@
 
 	[SubToolSelect,CopiedSubtool]
 	//get position of copied subtool
-	[TransformGet, xPos, yPos, zPos, xSc, ySc, zSc, xRot, yRot, zRot]
+	
+	//[TransformGet, xPos, yPos, zPos, xSc, ySc, zSc, xRot, yRot, zRot]
+	[MTransformGet, MyDataBlock1, 0]
 
-	[Note, xPos]
+
+	[Note, [MVarGet,MyDataBlock1,1]]
 
 	[SubToolSelect,UpdatedSubtool]
+
+
+
 	//get position of updated subtool
 	[TransformGet, xPos2, yPos2, zPos2, xSc2, ySc2, zSc2, xRot2, yRot2, zRot2]
-
-	[Note,xPos2]
+	[MTransformGet, MyDataBlock2, 0]
+	[Note, [MVarGet,MyDataBlock2,1]]
+	//[Note,xPos2]
 
 	[IPress,Tool:SubTool:Duplicate]
 
+	[MTransformSet,MyDataBlock1,0]
+
+/*
 	[IModSet,Tool:Deformation:Rotate,5]
 	[IModSet,Tool:Deformation:Rotate,1]
 	[ISet,Tool:Deformation:Rotate,xRot]
@@ -42,10 +52,10 @@
 	[IModSet,Tool:Deformation:Rotate,4]
 	[ISet,Tool:Deformation:Rotate,xRot]
 
-	[ISet,Tool:Geometry:X Position,xPos-xPos2]
-	[ISet,Tool:Geometry:Y Position,yPos-yPos2]
-	[ISet,Tool:Geometry:Z Position,zPos-zPos2]
-
+	[ISet,Tool:Geometry:X Position,xPos]
+	[ISet,Tool:Geometry:Y Position,yPos]
+	[ISet,Tool:Geometry:Z Position,zPos]
+*/
 
 ]//end of button
 
